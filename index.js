@@ -95,7 +95,6 @@ app.put("/edit/:id", (req, res) => {
   const form = req.body;
 
   const updateProc = processos.find((proc) => proc._id === id);
-  const index = processos.indexOf(updateProc);
 
   if (form.documentName) updateProc.documentName = form.documentName;
   if (form.status) updateProc.status = form.status;
@@ -105,9 +104,9 @@ app.put("/edit/:id", (req, res) => {
   if (form.dateEnd) updateProc.dateEnd = form.dateEnd;
   if (form.setor) updateProc.setor = form.setor;
 
-  console.log(updateProc);
+  //console.log(updateProc);
 
-  console.log(processos);
+  //console.log(processos);
 
   // res.send(
   //   `Processo ${id} de nome ${updateProc.documentName} atualizado com sucesso`
@@ -125,11 +124,21 @@ app.get("/process/:id", (req, res) => {
   return res.status(200).json(processId);
 });
 
-//Adicionar um comentário a array de comentários PUT /addComment/:id
+//Adicionar um comentário a array de comentários PUT /addcomment/:id
+app.put("/addcoment/:id", (req, res) => {
+  const { id } = req.params;
+  const comentario = req.body.comments;
+  const processId = processos.find((proc) => proc._id === id);
 
+  if (comentario) processId.comments.push(comentario);
+  return res.status(200).json(processId);
+  
+})
 
 //Acessar todos processos em andamento GET /status/open
-
+app.get ("status/open", (req,res) => {
+  
+});
 
 //Acessar todos processos finalizados GET /status/close
 

@@ -163,11 +163,23 @@ app.get("/status/close", (req,res) => {
 
 });
 
+//Crie uma rota que busque todos os processos de um determinado setor Rota: "/setor/:nomeSetor"
+app.get("/setor/:setor", (req, res) => {
+  const { setor } = req.params;
+  const processSetor = processos.map( (proc) => {
+    if (proc.setor === setor) return proc;
+  });
+  console.log(processSetor);
+  return res.status(200).json(processSetor);
+});
+
+
+
 
 //FINAL DO ARQUIVO
 //subindo o servidor 
 app.listen(8080, () => {
-    console.log(
-        `App up and running on port http://localhost:${process.env.PORT}`
-    );
+  console.log(
+      `App up and running on port http://localhost:${process.env.PORT}`
+  );
 });

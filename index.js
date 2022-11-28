@@ -136,12 +136,32 @@ app.put("/addcoment/:id", (req, res) => {
 })
 
 //Acessar todos processos em andamento GET /status/open
-app.get ("status/open", (req,res) => {
+app.get("/status/open", (req,res) => {
+
+  const procsAbertos = processos.map( (proc) => {
+    if (proc.status === "Em andamento") return proc;
+  });
   
+  console.log(procsAbertos);
+
+  return res.status(200).json(procsAbertos);
+
 });
 
 //Acessar todos processos finalizados GET /status/close
+app.get("/status/close", (req,res) => {
 
+  const procsFechados = processos.map( (proc) => {
+    if (proc.status === "Finalizado") return proc;
+  });
+
+  //const procsFechados = processos.status.includes("Finalizado");
+  
+  console.log(procsFechados);
+
+  return res.status(200).json(procsFechados);
+
+});
 
 
 //FINAL DO ARQUIVO
